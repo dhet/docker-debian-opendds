@@ -1,0 +1,16 @@
+sudo: required
+services:
+- docker
+language: bash
+script:
+# build image
+- docker build -t kugele1337/debian-opendds .
+# push image
+- >
+  if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
+    TAG=$(grep "ENV OPENDDS_VERSION" Dockerfile | awk 'NF>1{print $NF}')
+    docker tag kugele1337/debian-opendds kugele1337/debian-opendds:$TAG
+    docker push kugele1337/debian-opendds:$TAG
+    docker push kugele1337/debian-opendds
+  fi
