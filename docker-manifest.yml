@@ -1,0 +1,13 @@
+image: kugele1337/debian-opendds:latest
+manifests:
+  -
+    image: kugele1337/debian-opendds:latest
+    platform:
+      architecture: amd64
+      os: linux
+  -
+    image: kugele1337/qemu-raspbian-opendds:latest
+    platform:
+      architecture: arm
+      variant: v7
+      os: linux
