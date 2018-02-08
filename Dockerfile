@@ -3,24 +3,21 @@ FROM debian
 ENV OPENDDS_VERSION 3.12
 
 RUN apt-get update && \
-    apt-get install -y \
-    curl \
+    apt-get install --no-install-recommends -y \
     wget \
     g++ \
     make \
-    perl-base \
-    perl-modules \
     libdata-dumper-simple-perl && \
     cd /opt && \
-    mkdir OpenDDS && \
     wget -qO- http://download.objectcomputing.com/OpenDDS/OpenDDS-${OPENDDS_VERSION}.tar.gz | tar xvz -C OpenDDS && \
-    cd /opt/OpenDDS && \
+    cd OpenDDS-${OPENDDS_VERSION} && \
     ./configure --prefix=/usr/local --no-tests && \
     make && \
     make install && \
-    cp -a /opt/OpenDDS/ACE_wrappers/MPC /usr/local/share/ace/MPC && \
-    cp -Lr /opt/OpenDDS/ACE_wrappers/lib/* /usr/local/lib && \
-    rm -rf /opt/OpenDDS
+    cp -a /opt/OpenDDS-${OPENDDS_VERSION}/ACE_wrappers/MPC /usr/local/share/ace/MPC && \
+    cp -Lr /opt/OpenDDS-${OPENDDS_VERSION}/ACE_wrappers/lib/* /usr/local/lib && \
+    rm -rf /opt/OpenDDS-${OPENDDS_VERSION} && \
+    apt autoremove -y
 
 ENV ACE_ROOT=/usr/local/share/ace \
     TAO_ROOT=/usr/local/share/tao \
