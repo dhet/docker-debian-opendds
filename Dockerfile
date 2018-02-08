@@ -9,7 +9,7 @@ RUN apt-get update && \
     make \
     libdata-dumper-simple-perl && \
     cd /opt && \
-    wget -qO- http://download.objectcomputing.com/OpenDDS/OpenDDS-${OPENDDS_VERSION}.tar.gz | tar xvz -C OpenDDS && \
+    wget -qO- http://download.objectcomputing.com/OpenDDS/OpenDDS-${OPENDDS_VERSION}.tar.gz | tar xvz && \
     cd OpenDDS-${OPENDDS_VERSION} && \
     ./configure --prefix=/usr/local --no-tests && \
     make && \
